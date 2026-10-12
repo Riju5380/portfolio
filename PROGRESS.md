@@ -47,10 +47,9 @@ Tracks build progress of the portfolio. See [`CLAUDE.md`](./CLAUDE.md) for proje
 - [x] Console clean, links correct, keyboard nav + mobile menu work
 - [x] Sub-path build (`BASE_PATH=/portfolio/`) works
 - [ ] Test on a real phone after first deploy
-- [ ] Push to GitHub + enable Pages (Settings → Pages → GitHub Actions)
+- [x] Pushed to https://github.com/Riju5380/portfolio — live at https://riju5380.github.io/portfolio/
 
 ## Assets / info to replace later
-- `VITE_SITE_URL` in `.env` if the repo isn't `Riju5380/portfolio`
 - StockLearn screenshots in `src/assets/stocklearn/` when the app UI changes
 - `public/og-image.png` if you want a different social card
 - Add future projects in `src/config/projects.ts`
@@ -63,3 +62,4 @@ Tracks build progress of the portfolio. See [`CLAUDE.md`](./CLAUDE.md) for proje
 - 2026-10-12 — Plan approved (GitHub Pages, git with commits). Wrote CLAUDE.md and PROGRESS.md.
 - 2026-10-12 — User supplied real StockLearn screenshots → cropped, converted to WebP, used instead of a coded mockup.
 - 2026-10-12 — Built all sections. Fixed: masked headlines not revealing, mobile horizontal overflow (code panel), mobile menu collapsed by header backdrop-filter, tablet scroll-cue overlap. Verified at 3 breakpoints, reduced motion, sub-path build. Added Pages workflow + README.
+- 2026-10-12 — Pushed to GitHub. Merged the repo's initial commit, removed its Jekyll Pages workflow (it conflicted with the Vite deploy). First Actions deploy succeeded; live site verified (200, no console errors).
