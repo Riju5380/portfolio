@@ -54,6 +54,7 @@ export function Nav() {
   }, [open])
 
   return (
+    <>
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-500 ${
         scrolled || open ? 'border-b border-line bg-bg/70 backdrop-blur-xl' : 'border-b border-transparent'
@@ -116,8 +117,10 @@ export function Nav() {
           </button>
         </div>
       </nav>
+    </header>
 
-      <AnimatePresence>
+    {/* Rendered outside <header>: its backdrop-filter would otherwise become the containing block for this fixed panel */}
+    <AnimatePresence>
         {open && (
           <motion.div
             id="mobile-menu"
@@ -126,7 +129,7 @@ export function Nav() {
             animate={{ opacity: 1, y: 0 }}
             exit={reduce ? { opacity: 0 } : { opacity: 0, y: -8 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-x-0 top-16 bottom-0 flex flex-col justify-between overflow-y-auto border-t border-line bg-bg px-5 pb-10 pt-8 md:hidden"
+            className="fixed inset-x-0 top-16 bottom-0 z-40 flex flex-col justify-between overflow-y-auto border-t border-line bg-bg px-5 pb-10 pt-8 md:hidden"
           >
             <ul className="flex flex-col">
               {nav.map((item, i) => (
@@ -157,7 +160,7 @@ export function Nav() {
             </ul>
           </motion.div>
         )}
-      </AnimatePresence>
-    </header>
+    </AnimatePresence>
+    </>
   )
 }

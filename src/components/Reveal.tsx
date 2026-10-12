@@ -19,12 +19,16 @@ export function Reveal({ children, delay = 0, y = 24, className }: Props) {
   )
 }
 
-/** Headline whose lines slide up from behind a mask. `accent` lines get the gradient. */
+/**
+ * Headline whose lines slide up from behind a mask. `accent` lines get the gradient.
+ * The in-view trigger lives on the heading itself — the masked lines start clipped,
+ * so they can't observe their own visibility.
+ */
 export function MaskedLines({
   lines,
   accent = [],
   className,
-  as: Tag = 'h2',
+  as = 'h2',
   delay = 0,
   animateOnMount = false,
 }: {
@@ -36,17 +40,20 @@ export function MaskedLines({
   animateOnMount?: boolean
 }) {
   const reduce = useReducedMotion()
-  const trigger = animateOnMount ? { animate: { y: '0%' } } : { whileInView: { y: '0%' } }
+  const Tag = as === 'h1' ? motion.h1 : motion.h2
+  const trigger = animateOnMount
+    ? { animate: 'show' }
+    : { whileInView: 'show', viewport: { once: true, margin: '0px 0px -10% 0px' } }
   return (
-    <Tag className={className}>
+    <Tag className={className} initial={reduce ? false : 'hidden'} {...trigger}>
       {lines.map((line, i) => (
         <span key={line} className="block overflow-hidden pb-[0.08em] -mb-[0.08em]">
           <motion.span
             className={`block ${accent.includes(i) ? 'text-gradient' : ''}`}
-            initial={reduce ? false : { y: '110%' }}
-            {...trigger}
-            viewport={{ once: true, margin: '0px 0px -10% 0px' }}
-            transition={{ duration: 1.1, delay: delay + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
+            variants={{
+              hidden: { y: '110%' },
+              show: { y: '0%', transition: { duration: 1.1, delay: delay + i * 0.12, ease: [0.16, 1, 0.3, 1] } },
+            }}
           >
             {line}
           </motion.span>

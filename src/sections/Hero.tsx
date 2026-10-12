@@ -68,7 +68,7 @@ export function Hero() {
             delay={0.2}
             lines={site.hero.lines}
             accent={[1]}
-            className="mt-8 font-display text-[clamp(2.9rem,8.6vw,7.6rem)] font-semibold leading-[0.92] tracking-[-0.045em]"
+            className="mt-8 font-display text-[clamp(2.9rem,6.7vw,7rem)] font-semibold leading-[0.92] tracking-[-0.045em]"
           />
 
           <motion.p {...fadeUp(0.65)} className="mt-8 max-w-xl text-base leading-relaxed text-muted md:text-lg">
@@ -185,7 +185,7 @@ export function Hero() {
       {/* scroll indicator */}
       <a
         href="#about"
-        className="label group absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-3 hover:text-ink md:flex"
+        className="label group absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-3 hover:text-ink lg:flex"
       >
         Scroll
         <span aria-hidden="true" className="relative h-10 w-px overflow-hidden bg-line-strong">

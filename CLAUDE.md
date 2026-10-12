@@ -10,7 +10,7 @@ Progress is tracked in [`PROGRESS.md`](./PROGRESS.md). **Update it after every m
 - Vite + React 19 + TypeScript
 - Tailwind CSS v4 (via `@tailwindcss/vite`, tokens in `src/index.css` `@theme`)
 - `motion` (Framer Motion) for animation
-- `lucide-react` for UI icons; technology logos are inline SVGs in `src/components/TechIcon.tsx`
+- `lucide-react` for UI icons; brand/tech logos from `simple-icons` (LinkedIn inlined) in `src/components/iconData.ts`
 - Fonts self-hosted with `@fontsource-variable/*` (no external font requests)
 
 Do not add dependencies without a clear reason.
@@ -21,19 +21,25 @@ npm install
 npm run dev        # local dev server
 npm run build      # type-check + production build to dist/
 npm run preview    # serve dist/ locally
-npm run lint       # eslint
+npm run lint       # oxlint
 BASE_PATH=/portfolio/ npm run build   # build for a GitHub Pages project sub-path
 ```
+
+## Gotchas learned while building
+- `MaskedLines`: the in-view trigger must sit on the heading, not the clipped inner lines (they never intersect).
+- Grid children containing wide content (code panel) need `min-w-0`, or mobile gets horizontal overflow.
+- Elements with `backdrop-filter` become the containing block for `position: fixed` children —
+  the mobile menu is therefore rendered as a sibling of `<header>`.
 
 ## Structure
 ```
 src/
   config/site.ts       # ALL personal info, links, nav items, stack, workflow steps — edit here
   config/projects.ts   # Project[] — StockLearn is featured; add future projects here
-  components/          # reusable UI (Nav, Cursor, Reveal, Button, PhoneMockup, TechIcon, ...)
+  components/          # reusable UI (Nav, Cursor, Reveal/MaskedLines, Button, PhoneFrame, Icons, ...)
   sections/            # page sections in order: Hero, About, Work, Toolkit, AIWorkflow, Contact, Footer
-  hooks/               # useActiveSection, useFinePointer, ...
-  assets/stocklearn/   # drop real StockLearn screenshots here (auto-detected)
+  hooks/               # useActiveSection, useMediaQuery/useFinePointer
+  assets/stocklearn/   # real StockLearn screenshots (WebP)
 public/                # favicon.svg, og-image, robots.txt
 .github/workflows/     # GitHub Pages deployment
 ```
@@ -53,9 +59,11 @@ StockLearn mockup uses the real app palette from `../StockLearn/lib/utils/theme.
 (bg `#0B0F19`, card `#151D30`, blue `#2563EB`, green `#10B981`, red `#EF4444`, gold `#F59E0B`).
 
 ## Screenshots
-Put PNG/JPG/WebP files in `src/assets/stocklearn/` (e.g. `01-dashboard.png`, `02-portfolio.png`).
-They are picked up via `import.meta.glob`, sorted by filename, and replace the coded mockup automatically.
-Until then the coded mockup is shown and is labelled as illustrative sample data.
+Real StockLearn screenshots (provided by the user, originals in the git-ignored `screenshorts/` folder) live in
+`src/assets/stocklearn/` as 728×1520 WebP with the phone status bar cropped off (it showed personal
+notification/network icons). They are imported in `src/config/projects.ts` (`stockLearnScreens`).
+`PhoneFrame` draws a neutral device frame + status bar around them. The in-app figures are simulated —
+the stage is labelled "Real app screens · simulated data".
 
 ## Content & honesty rules (must follow)
 - Never invent employers, qualifications, clients, testimonials, download counts, achievements, or years of experience.

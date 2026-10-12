@@ -81,12 +81,12 @@ export function About() {
         </Reveal>
 
         <div className="mt-10 grid gap-16 lg:grid-cols-12 lg:gap-10">
-          <div className="lg:col-span-7">
+          <div className="min-w-0 lg:col-span-7">
             <div id="about-title">
               <MaskedLines
                 lines={site.about.lines}
                 accent={[1]}
-                className="font-display text-[clamp(2.4rem,6vw,5.2rem)] font-semibold leading-[0.95] tracking-[-0.04em]"
+                className="font-display text-[clamp(2.4rem,4.9vw,4.75rem)] font-semibold leading-[0.95] tracking-[-0.04em]"
               />
             </div>
 
@@ -113,7 +113,7 @@ export function About() {
             </Reveal>
           </div>
 
-          <div className="lg:col-span-5 lg:pt-28">
+          <div className="min-w-0 lg:col-span-5 lg:pt-28">
             <Reveal delay={0.15}>
               <CodePanel />
             </Reveal>

@@ -54,7 +54,7 @@ function DeviceStage() {
       <div className="label absolute left-5 top-5 z-10 flex items-center gap-2 !text-[0.6rem] md:left-7 md:top-7">
         <span className="size-1.5 rounded-full bg-emerald-400" aria-hidden="true" /> Real app screens · simulated data
       </div>
-      <div aria-hidden="true" className="label absolute right-5 top-5 z-10 !text-[0.6rem] md:right-7 md:top-7">
+      <div aria-hidden="true" className="label absolute right-5 top-5 z-10 hidden !text-[0.6rem] sm:block md:right-7 md:top-7">
         Case 01
       </div>
 
@@ -90,7 +90,7 @@ function ScreenStrip({ project }: { project: Project }) {
       <ul
         tabIndex={0}
         aria-label={`${project.title} screenshots`}
-        className="mt-6 -mx-5 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-6 [scrollbar-width:thin] md:-mx-10 md:gap-8 md:px-10 lg:mx-0 lg:grid lg:grid-cols-5 lg:overflow-visible lg:px-0"
+        className="mt-6 -mx-5 flex snap-x snap-mandatory scroll-px-5 gap-5 overflow-x-auto px-5 pb-6 [scrollbar-width:thin] md:-mx-10 md:scroll-px-10 md:gap-8 md:px-10 lg:mx-0 lg:grid lg:grid-cols-5 lg:overflow-visible lg:px-0"
       >
         {project.screenshots.map((shot, i) => (
           <li key={shot.label} className="w-[58vw] max-w-[15rem] shrink-0 snap-start sm:w-[34vw] lg:w-auto lg:max-w-none">
@@ -114,11 +114,11 @@ function FeaturedProject({ project }: { project: Project }) {
   return (
     <article aria-labelledby={`${project.slug}-title`}>
       <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
-        <Reveal className="lg:col-span-7" y={40}>
+        <Reveal className="min-w-0 lg:col-span-7" y={40}>
           <DeviceStage />
         </Reveal>
 
-        <div className="lg:col-span-5">
+        <div className="min-w-0 lg:col-span-5">
           <Reveal>
             <div className="flex flex-wrap items-center gap-2">
               {project.tech.map((t) => {
