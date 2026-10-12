@@ -3,15 +3,16 @@ import { ArrowUpRight, Download, Info } from 'lucide-react'
 import type { PointerEvent } from 'react'
 import { Button } from '../components/Button'
 import { BrandIcon, GithubIcon } from '../components/Icons'
-import { techIcons } from '../components/iconData'
+import { siGoogleplay, techIcons } from '../components/iconData'
 import { PhoneFrame } from '../components/PhoneFrame'
 import { Reveal } from '../components/Reveal'
 import { SectionLabel } from '../components/SectionLabel'
-import { projects, stockLearnScreens, type Project } from '../config/projects'
+import { projects, type Project } from '../config/projects'
 import { githubUrl } from '../config/site'
 import { useFinePointer } from '../hooks/useMediaQuery'
 
-function DeviceStage() {
+function DeviceStage({ project, index }: { project: Project; index: number }) {
+  const shots = project.stage ?? project.screenshots?.slice(0, 3)
   const reduce = useReducedMotion()
   const fine = useFinePointer()
   const active = fine && !reduce
@@ -52,32 +53,36 @@ function DeviceStage() {
       <div aria-hidden="true" className="absolute bottom-0 left-1/2 h-1/3 w-3/4 -translate-x-1/2 rounded-full bg-cyan/10 blur-[80px]" />
 
       <div className="label absolute left-5 top-5 z-10 flex items-center gap-2 !text-[0.6rem] md:left-7 md:top-7">
-        <span className="size-1.5 rounded-full bg-emerald-400" aria-hidden="true" /> Real app screens · simulated data
+        <span className="size-1.5 rounded-full bg-emerald-400" aria-hidden="true" /> {project.stageNote ?? 'Real app screens'}
       </div>
       <div aria-hidden="true" className="label absolute right-5 top-5 z-10 hidden !text-[0.6rem] sm:block md:right-7 md:top-7">
-        Case 01
+        Case {String(index + 1).padStart(2, '0')}
       </div>
 
+      {shots && shots.length === 3 && (
       <motion.div
         className="relative flex items-center justify-center px-4 pb-10 pt-20 md:px-10 md:pb-16 md:pt-24"
         style={active ? { rotateX: rotX, rotateY: rotY, transformStyle: 'preserve-3d' } : undefined}
       >
         <motion.div className="relative z-0 -mr-[9%] w-[30%] translate-y-6 -rotate-6 opacity-80 transition-opacity duration-500 group-hover:opacity-100" style={active ? { x: backX } : undefined}>
-          <PhoneFrame shot={stockLearnScreens.market} />
+          <PhoneFrame shot={shots[0]} />
         </motion.div>
         <div className="relative z-10 w-[37%]">
-          <PhoneFrame shot={stockLearnScreens.dashboard} />
+          <PhoneFrame shot={shots[1]} />
         </div>
         <motion.div
           className="relative z-0 -ml-[9%] w-[30%] translate-y-6 rotate-6 opacity-80 transition-opacity duration-500 group-hover:opacity-100"
           style={active ? { x: backXNeg } : undefined}
         >
-          <PhoneFrame shot={stockLearnScreens.portfolio} />
+          <PhoneFrame shot={shots[2]} />
         </motion.div>
       </motion.div>
+      )}
     </div>
   )
 }
+
+const stripCols: Record<number, string> = { 4: 'lg:grid-cols-4', 5: 'lg:grid-cols-5', 6: 'lg:grid-cols-6' }
 
 function ScreenStrip({ project }: { project: Project }) {
   if (!project.screenshots?.length) return null
@@ -90,7 +95,7 @@ function ScreenStrip({ project }: { project: Project }) {
       <ul
         tabIndex={0}
         aria-label={`${project.title} screenshots`}
-        className="mt-6 -mx-5 flex snap-x snap-mandatory scroll-px-5 gap-5 overflow-x-auto px-5 pb-6 [scrollbar-width:thin] md:-mx-10 md:scroll-px-10 md:gap-8 md:px-10 lg:mx-0 lg:grid lg:grid-cols-5 lg:overflow-visible lg:px-0"
+        className={`mt-6 -mx-5 flex snap-x snap-mandatory scroll-px-5 gap-5 overflow-x-auto px-5 pb-6 [scrollbar-width:thin] md:-mx-10 md:scroll-px-10 md:gap-8 md:px-10 lg:mx-0 lg:grid ${stripCols[project.screenshots.length] ?? 'lg:grid-cols-5'} lg:overflow-visible lg:px-0`}
       >
         {project.screenshots.map((shot, i) => (
           <li key={shot.label} className="w-[58vw] max-w-[15rem] shrink-0 snap-start sm:w-[34vw] lg:w-auto lg:max-w-none">
@@ -110,15 +115,16 @@ function ScreenStrip({ project }: { project: Project }) {
   )
 }
 
-function FeaturedProject({ project }: { project: Project }) {
+function FeaturedProject({ project, index }: { project: Project; index: number }) {
+  const flip = index % 2 === 1
   return (
     <article aria-labelledby={`${project.slug}-title`}>
       <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
-        <Reveal className="min-w-0 lg:col-span-7" y={40}>
-          <DeviceStage />
+        <Reveal className={`min-w-0 lg:col-span-7 ${flip ? 'lg:order-2' : ''}`} y={40}>
+          <DeviceStage project={project} index={index} />
         </Reveal>
 
-        <div className="min-w-0 lg:col-span-5">
+        <div className={`min-w-0 lg:col-span-5 ${flip ? 'lg:order-1' : ''}`}>
           <Reveal>
             <div className="flex flex-wrap items-center gap-2">
               {project.tech.map((t) => {
@@ -143,6 +149,7 @@ function FeaturedProject({ project }: { project: Project }) {
               {project.title}
             </h3>
             <p className="mt-3 font-display text-xl text-gradient md:text-2xl">{project.tagline}</p>
+            {project.credit && <p className="label mt-4 !text-[0.65rem]">{project.credit}</p>}
           </Reveal>
 
           <Reveal delay={0.1}>
@@ -164,6 +171,11 @@ function FeaturedProject({ project }: { project: Project }) {
 
           <Reveal delay={0.2}>
             <div className="mt-9 flex flex-wrap gap-3">
+              {project.playStore && (
+                <Button href={project.playStore} external icon={<BrandIcon icon={siGoogleplay} className="size-4" />}>
+                  Get it on Google Play
+                </Button>
+              )}
               {project.repo && (
                 <Button href={project.repo} external icon={<GithubIcon className="size-4" />}>
                   View on GitHub
@@ -257,8 +269,8 @@ function ComingSoonTile() {
 }
 
 export function Work() {
-  const featured = projects.find((p) => p.featured) ?? projects[0]
-  const others = projects.filter((p) => p !== featured)
+  const featured = projects.filter((p) => p.featured)
+  const others = projects.filter((p) => !p.featured)
 
   return (
     <section id="work" aria-labelledby="work-title" className="relative py-28 md:py-40">
@@ -271,11 +283,15 @@ export function Work() {
             </h2>
           </Reveal>
           <Reveal>
-            <p className="label !text-[0.6rem]">Featured · Flutter · Android</p>
+            <p className="label !text-[0.6rem]">{String(featured.length).padStart(2, '0')} case studies · Flutter · Android</p>
           </Reveal>
         </div>
 
-        <div className="mt-12">{featured && <FeaturedProject project={featured} />}</div>
+        <div className="mt-12 space-y-32 md:space-y-44">
+          {featured.map((p, i) => (
+            <FeaturedProject key={p.slug} project={p} index={i} />
+          ))}
+        </div>
 
         <div className="mt-28">
           <Reveal>

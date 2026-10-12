@@ -49,6 +49,13 @@ Tracks build progress of the portfolio. See [`CLAUDE.md`](./CLAUDE.md) for proje
 - [ ] Test on a real phone after first deploy
 - [x] Pushed to https://github.com/Riju5380/portfolio — live at https://riju5380.github.io/portfolio/
 
+### 7. Second project — SIGMA KEY TECH (school parent app)
+- [x] Captured 6 screens from the demo account over wireless adb
+- [x] Replaced school, student, guardian names, email and phone with fictional ones
+- [x] Work section supports multiple case studies (Case 01, 02 … alternating sides)
+- [x] "Get it on Google Play" button, credit line, privacy disclaimer
+- [x] User reviewed redacted screenshots → committed
+
 ## Assets / info to replace later
 - StockLearn screenshots in `src/assets/stocklearn/` when the app UI changes
 - `public/og-image.png` if you want a different social card
@@ -63,3 +70,4 @@ Tracks build progress of the portfolio. See [`CLAUDE.md`](./CLAUDE.md) for proje
 - 2026-10-12 — User supplied real StockLearn screenshots → cropped, converted to WebP, used instead of a coded mockup.
 - 2026-10-12 — Built all sections. Fixed: masked headlines not revealing, mobile horizontal overflow (code panel), mobile menu collapsed by header backdrop-filter, tablet scroll-cue overlap. Verified at 3 breakpoints, reduced motion, sub-path build. Added Pages workflow + README.
 - 2026-10-12 — Pushed to GitHub. Merged the repo's initial commit, removed its Jekyll Pages workflow (it conflicted with the Vite deploy). First Actions deploy succeeded; live site verified (200, no console errors).
+- 2026-10-12 — Added SIGMA KEY TECH (Flutter, live on Play, built at Astfast for SIGMAKEY). Screens from demo account, personal details replaced (Demo High School / Arjun Roy / Ananya Roy / Rahul Roy). Awaiting user review before commit.

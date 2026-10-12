@@ -1,4 +1,4 @@
-import { siCplusplus, siDart, siFlutter, siGithub, siInstagram, siLaravel, siPhp } from 'simple-icons'
+import { siCplusplus, siDart, siFlutter, siGithub, siGoogleplay, siInstagram, siLaravel, siPhp } from 'simple-icons'
 import type { TechId } from '../config/site'
 
 export type IconData = { path: string; hex: string }
@@ -17,4 +17,4 @@ export const techIcons: Record<TechId, IconData> = {
   cpp: siCplusplus,
 }
 
-export { siGithub, siInstagram }
+export { siGithub, siGoogleplay, siInstagram }

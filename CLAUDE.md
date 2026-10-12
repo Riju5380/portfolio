@@ -2,7 +2,8 @@
 
 Single-page personal portfolio for **Srijit Santra** (App Developer at Astfast Infotech — Flutter / cross-platform).
 Visual direction: **"Digital After Dark"** — dark, editorial, fine grid + noise, restrained violet/cyan neon.
-Featured project: **StockLearn** (Flutter virtual stock market simulator). Source lives in `../StockLearn`.
+Featured projects: **StockLearn** (Flutter virtual stock market simulator, source in `../StockLearn`) and
+**SIGMA KEY TECH** (Flutter school parent app, live on Google Play, built at Astfast Infotech for SIGMAKEY; private source).
 
 Progress is tracked in [`PROGRESS.md`](./PROGRESS.md). **Update it after every milestone** (tick items, add a dated log line).
 
@@ -65,10 +66,14 @@ notification/network icons). They are imported in `src/config/projects.ts` (`sto
 `PhoneFrame` draws a neutral device frame + status bar around them. The in-app figures are simulated —
 the stage is labelled "Real app screens · simulated data".
 
+SIGMA KEY TECH screens (`src/assets/sigmakey/`) come from a demo account. Every real-looking name was replaced:
+school → "Demo High School", students → "Arjun Roy" / "Ananya Roy", guardian → "Rahul Roy", email → parent.demo@example.com,
+phone → +91 90000 00000. Never add unredacted screenshots of this app; never commit the account credentials.
+
 ## Content & honesty rules (must follow)
 - Never invent employers, qualifications, clients, testimonials, download counts, achievements, or years of experience.
 - No skill percentages / proficiency bars.
-- Do not invent extra projects. Only StockLearn is confirmed; others go in `projects.ts` when the user supplies them.
+- Do not invent extra projects. Confirmed: StockLearn, SIGMA KEY TECH. Others go in `projects.ts` when the user supplies them.
 - StockLearn mockup data is illustrative — never present it as real market data. Keep the "learning/demo, not real trading" disclaimer.
 - AI copy: AI assists the workflow; it does not replace engineering judgment.
 - No fake functionality: no contact form unless wired to a real service; every button must work.
